@@ -7,3 +7,5 @@ pkg
 .loadpath
 .project
 rdoc
+
+Gemfile.lock
