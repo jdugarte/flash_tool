@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/flash_tool/flash_script.rb'
 require File.dirname(__FILE__) + '/flash_tool/flash_object.rb'
 require File.dirname(__FILE__) + '/flash_tool/flash.rb'
 require File.dirname(__FILE__) + '/flash_tool/flash_combine.rb'
+require 'cocaine'
 
 module FlashTool
   class FlashToolError < RuntimeError
@@ -23,10 +24,9 @@ module FlashTool
         # by documetation swfdump --text need to do this but
         raise FlashToolError, "File missing path: #{file}" unless File.exist?(file)
         raise FlashToolError, "Wrong file type SWF path: #{file} "  unless file =~ /(.swf)$/i
-        command = "swfstrings #{file}"
-        output = `#{command} 2>&1`
-        # if file have appropiate name but is something is wrong with him
-        raise FlashToolError, output if output =~/(errors.)$/
+        line = Cocaine::CommandLine.new("swfstrings", ":file")
+        line.command({ :file => file })
+        output = line.run rescue raise(FlashToolError)
         return output
       end
 
@@ -75,23 +75,16 @@ module FlashTool
       #  FlashTool.swfdump('test.swf', 'rate')
       #
       #  FlashTool.swfdump('test.swf', ['rate','width','height'])
-      def swfdump(file, option=nil)
-        command = 'swfdump'
-        if option
-          if option.kind_of? Array
-            option.collect! { |a|   "--#{a}" }
-            option = option.join(' ')
-          else
-            option = "--#{option}"
-          end
-        end
-        command = "#{command} #{option} #{file}"
-        output = `#{command} 2>&1`
-        if $?.exitstatus != 0
-          raise FlashToolError, "SWF command : #{command.inspect} failed : #{{:status_code => $?, :output => output}.inspect}"
-        else
-          return output
-        end
+      def swfdump(file, options=nil)
+        options = [options].flatten.compact.map(&:to_s)
+        arguments = {}
+        options.each { |option| arguments[option.to_sym] = option }
+        options_list = arguments.keys.map { |k| "--:#{k}"}.join(' ')
+        line = Cocaine::CommandLine.new("swfdump", "#{options_list} :file")
+        line.command(arguments.merge({ :file => file }))
+        line.run
+      rescue Cocaine::ExitStatusError => e
+        raise FlashToolError, e.message
       end
     end
 
