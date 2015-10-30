@@ -13,7 +13,7 @@ class Test_Flash_Data < Test::Unit::TestCase
   JPG_SWF = CURRENT_DIR + "jpeg.swf"
   NO_FILE = CURRENT_DIR + "jpegswf.swf"
   BAD_SWF = CURRENT_DIR + "bad_swf.swf"
-  
+
   def test_get_info
     info =  FlashTool.flash_info(TEST_SWF)
     assert_kind_of Hash, info

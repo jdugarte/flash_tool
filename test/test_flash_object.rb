@@ -63,14 +63,14 @@ class FlashToolsTest < Test::Unit::TestCase
   def test_pdf_create_with_password_without_save_declaration
     output_file = "#{CURRENT_DIR}/test_password.swf"
     begin
-    
+
       flash_object = FlashObject.new(PDF_PASSW_PROTECTED)
       flash_object.jpegquality(80)
       flash_object.password("test")
       flash_object.output(output_file)
       flash_object.save()
       assert(File.exist?(output_file))
-      assert_equal output_file, flash_object.output_path      
+      assert_equal output_file, flash_object.output_path
     ensure
       File.delete(output_file)
     end
@@ -139,7 +139,7 @@ class FlashToolsTest < Test::Unit::TestCase
   def test_create_from_blob_block
     output_file = "#{CURRENT_DIR}/jpg_block.swf"
     begin
-    
+
       tt = File.open(JPG_FILE, "rb")
       flash_object = FlashObject.from_blob(tt.read, 'jpg') do |f|
         f.quality(80)
@@ -152,7 +152,7 @@ class FlashToolsTest < Test::Unit::TestCase
       assert_equal output_file, flash_object.output_path
 
     ensure
-    
+
       File.delete(output_file)
     end
   end

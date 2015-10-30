@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.version = FlashTool::VERSION
   gem.authors = ["Bojan Milosavljevic "]
   gem.email = ["milboj@gmail.com"]
-  gem.description = %q{A ruby wrapper for swftool command line tool. http://www.swftools.org/ 
+  gem.description = %q{A ruby wrapper for swftool command line tool. http://www.swftools.org/
 Flash tool is small and mini tool for creating swf files from pdfs, pictures and
 fonts and parsing data from flash files.}
 

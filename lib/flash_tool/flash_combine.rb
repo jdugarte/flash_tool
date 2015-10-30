@@ -15,7 +15,7 @@ module FlashTool
     # Can be used with or without master swf file
     #
     # ==Use
-    # 
+    #
     #  combinated_file = FlashTool::FlashCombine.new
     #  combinated_file.master("master.swf")
     #  combinated_file.slave("viewport","slave.swf") #viewport is name of frame where can be placed slave
@@ -47,12 +47,12 @@ module FlashTool
       raise(FlashToolError, "Can be only one master swf file" ) if @master
       @master = file
     end
-    
+
     #
-    # With this method you will set slave swf file for combining 
-    # 
+    # With this method you will set slave swf file for combining
+    #
     # Can be only one master file
-    # 
+    #
     def slave(name, file)
       @slaves += ["#{name}=#{file}"]
     end
@@ -62,7 +62,7 @@ module FlashTool
     # Outputh path must be setted here or with method outputh before
     #
     # Raise error if output_path is not set.
-    # 
+    #
     def save(output_path=nil)
       raise FlashToolError, "No output file name " if !@output_path and !output_path
       to_output_path(output_path)
@@ -74,7 +74,7 @@ module FlashTool
 
     private
     def combiner
-      @args.unshift(@master, @slaves)      
+      @args.unshift(@master, @slaves)
     end
 
 

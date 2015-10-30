@@ -29,7 +29,7 @@ module FlashTool
       @type = type || input.split('.').last
       @command = type_parser @type
       super(input,@command,tempfile,&block)
-      
+
     end
 
 
@@ -67,7 +67,7 @@ module FlashTool
       return command
     end
 
- 
+
   end
 
 end

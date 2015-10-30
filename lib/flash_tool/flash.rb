@@ -1,6 +1,6 @@
 module FlashTool
 
-  
+
   class Flash
 
     attr :input
@@ -89,7 +89,7 @@ module FlashTool
       unless @output_path
         if output_path
           @output_path = output_path
-        else 
+        else
           @output_path = parse_nil_path(@input)
         end
         @args << "--output"

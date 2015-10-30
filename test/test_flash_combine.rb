@@ -22,7 +22,7 @@ class Test_Flash_Combine < Test::Unit::TestCase
       flash.save(output_file)
       assert(File.exist?(output_file))
       assert_kind_of(Hash, flash.info)
-      
+
     ensure
       File.delete(output_file)
     end
@@ -40,7 +40,7 @@ class Test_Flash_Combine < Test::Unit::TestCase
       assert_kind_of(Hash, flash.info)
       assert(File.exist?(output_file))
     ensure
-      File.delete(output_file) 
+      File.delete(output_file)
     end
   end
 
@@ -52,7 +52,7 @@ class Test_Flash_Combine < Test::Unit::TestCase
         f.slave("viewport",TEST_SWF)
         f.method_missing("local-with-filesystem")
         f.method_missing("rate",50)
-        f.master(inputs)        
+        f.master(inputs)
         f.output(output_file)
         f.save()
       end
@@ -83,6 +83,6 @@ class Test_Flash_Combine < Test::Unit::TestCase
 
     end
 
-  end      
-    
+  end
+
 end

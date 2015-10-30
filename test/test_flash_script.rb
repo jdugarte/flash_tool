@@ -27,7 +27,7 @@ class Test_Flash_Script < Test::Unit::TestCase
   end
 
   def test_cgi_out
-    
+
     flash_object = FlashScript.new(TEST_SCRIPT)
     assert_kind_of String, flash_object.cgi
   end
